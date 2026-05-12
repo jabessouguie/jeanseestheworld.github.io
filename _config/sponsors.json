@@ -1,26 +1,20 @@
 {
-  "interrail": {
-    "label": "Buy your Interrail Pass",
-    "url": "TON_LIEN_INTERRAIL",
-    "tags": ["interrail", "pass", "rail pass", "train pass"],
-    "insertion_context": "In the pass block and checklist of every itinerary"
+  "getyourguide": {
+    "name": "GetYourGuide",
+    "booking_url": "https://getyourguide.tpk.lv/ketVvvQQ",
+    "app_url": "https://gyg.me/jeanseestheworld-app",
+    "creator_url": "https://www.getyourguide.com/explorer/creators/-cs68?partner_id=73GRA3T",
+    "promo_code": "JEANSEESTHEWORLD5",
+    "label": "Book tours & experiences"
   },
-  "travelpayouts": {
-    "label": "Compare flights & trains",
-    "url": "TON_LIEN_TRAVELPAYOUTS",
-    "tags": ["flight", "train", "transport", "ticket"],
-    "insertion_context": "When discussing transport booking or ticket prices"
+  "klook": {
+    "name": "Klook",
+    "booking_url": "https://klook.tpk.lv/11RM6nZE",
+    "label": "Book tours & activities"
   },
-  "emerald": {
-    "label": "Book this activity",
-    "url": "TON_LIEN_EMERALD",
-    "tags": ["activity", "tour", "excursion", "experience", "day trip"],
-    "insertion_context": "When recommending an activity or guided tour"
-  },
-  "booking": {
-    "label": "Find accommodation",
-    "url": "TON_LIEN_BOOKING",
-    "tags": ["hotel", "accommodation", "hostel", "stay"],
-    "insertion_context": "When discussing where to stay"
+  "mapstr": {
+    "name": "Mapstr",
+    "url": "https://go.mapstr.com/BG0BzqNCrtb?~channel=pasteboard",
+    "label": "View my travel maps"
   }
 }

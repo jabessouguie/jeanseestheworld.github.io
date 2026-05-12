@@ -19,7 +19,6 @@ Requires: pip install anthropic Pillow piexif
 import argparse
 import base64
 import concurrent.futures
-import itertools
 import json
 import os
 import sys
@@ -56,8 +55,9 @@ OUTPUT_PATH = REPO_ROOT / "_photos" / "index.json"
 SUPPORTED     = {".jpg", ".jpeg", ".png", ".webp"}
 SCORE_SIZE    = 512                  # px for Vision scoring thumbnail
 SCORE_QUALITY = 70                   # JPEG quality for scoring thumbnail
-POLL_INTERVAL = 30                   # seconds between batch status checks
-CHUNK_SIZE    = 500                  # photos per batch submission
+POLL_INITIAL  = 10                   # first poll after this many seconds
+POLL_MAX      = 30                   # max seconds between polls
+CHUNK_SIZE    = 1000                 # photos per batch submission (Batch API limit: 10k)
 MAX_WORKERS   = os.cpu_count() or 4  # parallel thumbnail/EXIF workers
 
 
@@ -193,10 +193,32 @@ def build_batch_requests(items: list[tuple]) -> tuple[list[dict], dict[str, str]
     return requests, id_map
 
 
+def _fmt_eta(seconds: float) -> str:
+    if seconds <= 0 or seconds > 86400:
+        return "?"
+    h, r = divmod(int(seconds), 3600)
+    m, s = divmod(r, 60)
+    if h:  return f"{h}h{m:02d}m"
+    if m:  return f"{m}m{s:02d}s"
+    return f"{s}s"
+
+
+def _progress(done: int, total: int, run_start: float) -> str:
+    pct     = done / total if total else 0
+    bar     = ("█" * int(pct * 25)).ljust(25, "░")
+    elapsed = time.time() - run_start
+    rate    = done / elapsed * 60 if elapsed > 1 else 0   # photos/min
+    eta     = _fmt_eta((total - done) / (rate / 60)) if rate > 0 else "?"
+    return f"[{bar}] {done}/{total} ({pct:.0%})  {rate:.0f} photos/min  ETA {eta}"
+
+
 def submit_and_poll(
     client: anthropic.Anthropic,
     requests: list[dict],
     id_map: dict[str, str],
+    scored_before: int = 0,
+    total_to_score: int = 0,
+    run_start: float = 0.0,
 ) -> dict[str, dict]:
     print(f"\nSubmitting batch of {len(requests)} photos to Haiku Vision...")
     for attempt in range(1, 6):
@@ -210,20 +232,23 @@ def submit_and_poll(
             print(f"  [!] Batch submit failed (attempt {attempt}/5): {e} — retrying in {wait}s...")
             time.sleep(wait)
     batch_id = batch.id
-    print(f"Batch ID: {batch_id} — polling every {POLL_INTERVAL}s...")
+    print(f"  Batch ID: {batch_id}")
 
+    poll_secs = POLL_INITIAL
     while True:
         status = client.messages.batches.retrieve(batch_id)
         counts = status.request_counts
-        print(
-            f"  processing={counts.processing}  "
-            f"succeeded={counts.succeeded}  "
-            f"errored={counts.errored}  "
-            f"expired={counts.expired}"
-        )
+        current = scored_before + counts.succeeded
+        if total_to_score > 0 and run_start:
+            print(f"  {_progress(current, total_to_score, run_start)}"
+                  f"  (✗{counts.errored})", end="\r", flush=True)
+        else:
+            print(f"  ✓{counts.succeeded} ✗{counts.errored} ⏳{counts.processing}", end="\r", flush=True)
         if status.processing_status == "ended":
+            print()   # newline after \r
             break
-        time.sleep(POLL_INTERVAL)
+        time.sleep(poll_secs)
+        poll_secs = min(poll_secs + 5, POLL_MAX)
 
     results = {}
     for result in client.messages.batches.results(batch_id):
@@ -315,116 +340,144 @@ def main():
         existing   = {p["file"]: p for p in all_photos}
         print(f"Existing index: {len(existing)} photos already scored")
 
-    # Generator — lazily yield paths of unseen files (no full list in memory)
-    def iter_new_files():
-        for entry in os.scandir(args.photos):
-            if Path(entry.name).suffix.lower() in SUPPORTED:
-                rel = str(Path(entry.path).relative_to(REPO_ROOT))
-                if rel not in existing or args.force:
-                    yield entry.path
+    # Pre-scan all new files upfront — required to know total for ETA
+    print("Scanning for new photos...", end=" ", flush=True)
+    new_paths: list[str] = []
+    for entry in os.scandir(args.photos):
+        if Path(entry.name).suffix.lower() in SUPPORTED:
+            rel = str(Path(entry.path).relative_to(REPO_ROOT))
+            if rel not in existing or args.force:
+                new_paths.append(entry.path)
+    total_to_score = len(new_paths)
+    total_chunks   = max(1, (total_to_score + args.chunk_size - 1) // args.chunk_size)
+    print(f"{total_to_score} found → {total_chunks} chunk(s) of ≤{args.chunk_size}")
 
-    chunk_num = total_new = total_del = 0
-
-    with concurrent.futures.ProcessPoolExecutor(max_workers=args.workers) as executor:
-        file_gen = iter_new_files()
-
-        while True:
-            batch_paths = list(itertools.islice(file_gen, args.chunk_size))
-            if not batch_paths:
-                break
-
-            chunk_num += 1
-            print(f"\nChunk {chunk_num} — {len(batch_paths)} photos"
-                  f" — EXIF + thumbnails ({args.workers} workers)...")
-
-            # Parallel EXIF extraction + thumbnail generation
-            worker_args = [(p, str(REPO_ROOT)) for p in batch_paths]
-            processed   = list(executor.map(_process_file, worker_args))
-
-            # Build per-photo metadata map and flat (rel, b64) list for batch
-            meta_map:   dict[str, dict]  = {}
-            batch_items: list[tuple]     = []
-            for rel, exif, b64 in processed:
-                meta_map[rel] = {
-                    "file":           rel,
-                    "width":          exif["width"],
-                    "height":         exif["height"],
-                    "orientation":    exif["orientation"],
-                    "date":           exif["date"],
-                    "coordinates":    exif["coordinates"],
-                    "destination":    None,
-                    "country":        None,
-                    "city":           None,
-                    "itinerary_match": None,
-                    "tags":           [],
-                }
-                batch_items.append((rel, b64))
-
-            # Score
-            if args.no_batch:
-                scores: dict[str, dict] = {}
-                for i, (rel, _) in enumerate(batch_items, 1):
-                    print(f"  [{i}/{len(batch_items)}] {rel}")
-                    try:
-                        scores[rel] = score_single(client, REPO_ROOT / rel)
-                    except Exception as e:
-                        print(f"    Error: {e}")
-            else:
-                batch_requests, id_map = build_batch_requests(batch_items)
-                scores = submit_and_poll(client, batch_requests, id_map)
-
-            # Merge scores — keep usable, delete the rest
-            chunk_new = chunk_del = 0
-            for rel, raw in scores.items():
-                meta  = meta_map[rel]
-                total = round(
-                    raw.get("brightness",     0) +
-                    raw.get("sharpness",      0) +
-                    raw.get("composition",    0) +
-                    raw.get("visual_interest", 0),
-                    1,
-                )
-                meta["quality"] = {
-                    "score":          total,
-                    "brightness":     raw.get("brightness"),
-                    "sharpness":      raw.get("sharpness"),
-                    "composition":    raw.get("composition"),
-                    "visual_interest": raw.get("visual_interest"),
-                    "instagram_safe": raw.get("instagram_safe", False),
-                    "hero_candidate": raw.get("hero_candidate", False),
-                    "usable":         total >= 7.0,
-                }
-                if total >= 7.0:
-                    all_photos.append(meta)
-                    chunk_new += 1
-                else:
-                    file_path = REPO_ROOT / rel
-                    if file_path.exists():
-                        file_path.unlink()
-                    chunk_del += 1
-
-            total_new += chunk_new
-            total_del += chunk_del
-
-            if chunk_del:
-                print(f"  Deleted {chunk_del} photo(s) with score < 7.0")
-
-            # Write index after every chunk — safe to interrupt
-            all_photos.sort(
-                key=lambda p: p.get("quality", {}).get("score", 0),
-                reverse=True,
-            )
-            _write_index(all_photos)
-            print(f"  ✓ Chunk {chunk_num} done — +{chunk_new} added, index = {len(all_photos)} photos")
-
-    if chunk_num == 0:
+    if not new_paths:
         print("Nothing new to score.")
         return
 
+    run_start  = time.time()
+    chunk_num  = total_new = total_del = 0
+    scored_so_far = 0
+
+    def _build_chunk(paths: list[str], executor) -> list[tuple]:
+        """EXIF + thumbnail for a list of paths. Called from a thread."""
+        w_args = [(p, str(REPO_ROOT)) for p in paths]
+        return list(executor.map(_process_file, w_args, chunksize=10))
+
+    with concurrent.futures.ProcessPoolExecutor(max_workers=args.workers) as executor:
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as prefetch_pool:
+
+            chunks = [
+                new_paths[i:i + args.chunk_size]
+                for i in range(0, total_to_score, args.chunk_size)
+            ]
+
+            # Prefetch first chunk immediately
+            prefetch_future = prefetch_pool.submit(_build_chunk, chunks[0], executor)
+
+            for chunk_idx, batch_paths in enumerate(chunks):
+                chunk_num += 1
+                print(f"\nChunk {chunk_num}/{total_chunks} — {len(batch_paths)} photos"
+                      f" — waiting for thumbnails...")
+
+                # Get this chunk's thumbnails (already prefetched)
+                processed = prefetch_future.result()
+
+                # Immediately prefetch NEXT chunk while this batch is scoring
+                if chunk_idx + 1 < len(chunks):
+                    next_paths = chunks[chunk_idx + 1]
+                    prefetch_future = prefetch_pool.submit(_build_chunk, next_paths, executor)
+
+                # Build metadata map + batch items
+                meta_map:    dict[str, dict] = {}
+                batch_items: list[tuple]     = []
+                for rel, exif, b64 in processed:
+                    meta_map[rel] = {
+                        "file":            rel,
+                        "width":           exif["width"],
+                        "height":          exif["height"],
+                        "orientation":     exif["orientation"],
+                        "date":            exif["date"],
+                        "coordinates":     exif["coordinates"],
+                        "destination":     None,
+                        "country":         None,
+                        "city":            None,
+                        "itinerary_match": None,
+                        "tags":            [],
+                    }
+                    batch_items.append((rel, b64))
+
+                # Score (next chunk thumbnails generating in parallel)
+                if args.no_batch:
+                    scores: dict[str, dict] = {}
+                    for i, (rel, _) in enumerate(batch_items, 1):
+                        print(f"  [{i}/{len(batch_items)}] {rel}")
+                        try:
+                            scores[rel] = score_single(client, REPO_ROOT / rel)
+                        except Exception as e:
+                            print(f"    Error: {e}")
+                else:
+                    batch_requests, id_map = build_batch_requests(batch_items)
+                    scores = submit_and_poll(
+                        client, batch_requests, id_map,
+                        scored_before=scored_so_far,
+                        total_to_score=total_to_score,
+                        run_start=run_start,
+                    )
+
+                # Merge scores — keep usable, delete the rest
+                chunk_new = chunk_del = 0
+                for rel, raw in scores.items():
+                    meta  = meta_map[rel]
+                    score = round(
+                        raw.get("brightness",      0) +
+                        raw.get("sharpness",       0) +
+                        raw.get("composition",     0) +
+                        raw.get("visual_interest", 0),
+                        1,
+                    )
+                    meta["quality"] = {
+                        "score":           score,
+                        "brightness":      raw.get("brightness"),
+                        "sharpness":       raw.get("sharpness"),
+                        "composition":     raw.get("composition"),
+                        "visual_interest": raw.get("visual_interest"),
+                        "instagram_safe":  raw.get("instagram_safe", False),
+                        "hero_candidate":  raw.get("hero_candidate", False),
+                        "usable":          score >= 7.0,
+                    }
+                    if score >= 7.0:
+                        all_photos.append(meta)
+                        chunk_new += 1
+                    else:
+                        fp = REPO_ROOT / rel
+                        if fp.exists():
+                            fp.unlink()
+                        chunk_del += 1
+
+                scored_so_far += len(scores)
+                total_new     += chunk_new
+                total_del     += chunk_del
+
+                if chunk_del:
+                    print(f"  Deleted {chunk_del} photo(s) with score < 7.0")
+
+                all_photos.sort(
+                    key=lambda p: p.get("quality", {}).get("score", 0), reverse=True
+                )
+                _write_index(all_photos)
+
+                elapsed = time.time() - run_start
+                print(f"  ✓ Chunk {chunk_num}/{total_chunks} done"
+                      f" — +{chunk_new} kept, {chunk_del} deleted"
+                      f" — {_progress(scored_so_far, total_to_score, run_start)}")
+
     usable = sum(1 for p in all_photos if p.get("quality", {}).get("usable"))
     heroes = sum(1 for p in all_photos if p.get("quality", {}).get("hero_candidate"))
-    print(f"\n✓ Finished — {total_new} added, {total_del} deleted")
-    print(f"  Total: {len(all_photos)}  |  Usable (≥7.0): {usable}  |  Hero candidates (≥8.5): {heroes}")
+    elapsed = time.time() - run_start
+    print(f"\n✓ Done in {_fmt_eta(elapsed)} — {total_new} kept, {total_del} deleted")
+    print(f"  Total: {len(all_photos)}  |  Usable (≥7.0): {usable}  |  Hero (≥8.5): {heroes}")
 
 
 if __name__ == "__main__":

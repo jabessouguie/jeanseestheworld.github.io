@@ -1,5 +1,4 @@
-# Photos — never commit personal photos to git
-assets/photos/
+# Raw/original photos — never commit to git
 _photos/*.mov
 _photos/*.mp4
 _photos/*.jpeg
@@ -7,6 +6,10 @@ _photos/*.jpg
 _photos/*.png
 _photos/*.webp
 _photos/*.heic
+# Originals in assets (non-WebP formats)
+assets/photos/*.heic
+assets/photos/*.mov
+assets/photos/*.mp4
 /tmp/scoring_*.jpg
 tools/carousel-agent/output/
 newsletters/*-draft.html
