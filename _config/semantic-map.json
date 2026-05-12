@@ -17,7 +17,12 @@
       "cities": ["Amsterdam", "Keukenhof", "Zaanse Schans", "Utrecht", "Groningen", "Rotterdam", "Maastricht"],
       "published": false,
       "created_at": "2026-05-12",
-      "satellites": []
+      "satellites": [
+        "articles/amsterdam-3-days-iamsterdam-card/",
+        "articles/keukenhof-complete-guide/",
+        "articles/eurostar-amsterdam-booking/",
+        "articles/netherlands-train-system-guide/"
+      ]
     },
     {
       "id": "croatia-10-days",
@@ -88,7 +93,12 @@
       "day_trips": ["Pompeii", "Sorrento", "Capri", "Camogli", "Cinque Terre", "Lake Como (Varenna, Bellagio)"],
       "published": false,
       "created_at": "2026-05-12",
-      "satellites": []
+      "satellites": [
+        "articles/italian-trains-booking-guide/",
+        "articles/naples-food-guide/",
+        "articles/lake-como-varenna-day-trip/",
+        "articles/interrail-italy-pass-calculator/"
+      ]
     }
   ],
   "city_guides": []
