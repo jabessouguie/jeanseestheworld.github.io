@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{CITY}} Travel Guide — Jean Sees the World</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Roboto:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap">
+
+  <link rel="stylesheet" href="../../../assets/css/blog.css">
+
+  <!-- Schema.org: Article + FAQPage + TouristAttraction -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{CITY}} Travel Guide",
+    "description": "{{META_DESCRIPTION}}",
+    "image": "{{HERO_IMAGE_ABSOLUTE}}",
+    "author": {
+      "@type": "Person",
+      "name": "Jean",
+      "sameAs": "https://instagram.com/jeanseestheworld"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Jean Sees the World"
+    },
+    "datePublished": "{{DATE_PUBLISHED}}",
+    "dateModified": "{{DATE_MODIFIED}}"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {{FAQ_SCHEMA_ITEMS}}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TouristAttraction",
+    "name": "{{CITY}}",
+    "description": "{{CITY_SCHEMA_DESCRIPTION}}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "{{CITY}}",
+      "addressCountry": "{{COUNTRY_CODE}}"
+    }
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a href="../../../index.html" class="site-nav__logo">Jean Sees the World</a>
+      <ul class="site-nav__links">
+        <li><a href="../../../index.html">Home</a></li>
+        <li><a href="../../../itineraries/">Itineraries</a></li>
+        <li><a href="../../../guides/">Guides</a></li>
+        <li><a href="../../../cities/" aria-current="true">Cities</a></li>
+        <li><a href="../../../articles/">Deep Dives</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 1. Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol class="breadcrumb__list">
+      <li><a href="../../../index.html">Home</a></li>
+      <li><a href="../../../cities/">Cities</a></li>
+      <li><a href="../../../cities/{{COUNTRY_SLUG}}/">{{COUNTRY}}</a></li>
+      <li>{{CITY}}</li>
+    </ol>
+  </nav>
+
+  <!-- 2. Hero -->
+  <section class="hero">
+    <img
+      src="{{HERO_IMAGE}}"
+      alt="{{HERO_ALT}}"
+      class="photo-hero"
+      width="1920" height="1080"
+      loading="eager"
+      fetchpriority="high"
+    >
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__content container">
+      <h1 class="hero__title">{{CITY}}</h1>
+      <p class="hero__tagline">{{TAGLINE}}</p>
+    </div>
+  </section>
+
+  <main class="container" style="padding-top:2.5rem; padding-bottom:4rem;">
+    <div class="page-body">
+
+      <article class="page-body__main">
+
+        <!-- 3. Quick stats table -->
+        <section class="content-section" id="stats">
+          <div class="table-wrapper" style="max-width:560px;">
+            <table class="quick-stats">
+              <tbody>
+                <tr><td><strong>Country</strong></td><td>{{COUNTRY}}</td></tr>
+                <tr><td><strong>Region</strong></td><td>{{REGION}}</td></tr>
+                <tr><td><strong>Best season</strong></td><td>{{BEST_SEASON}}</td></tr>
+                <tr><td><strong>Recommended stay</strong></td><td>{{RECOMMENDED_NIGHTS}} nights</td></tr>
+                <tr><td><strong>Budget/day</strong></td><td>€{{BUDGET_LOW}}–€{{BUDGET_HIGH}}</td></tr>
+                <tr><td><strong>Interrail access</strong></td><td>{{RAIL_ACCESS}}</td></tr>
+                <tr><td><strong>Language</strong></td><td>{{LANGUAGE}}</td></tr>
+                <tr><td><strong>Currency</strong></td><td>{{CURRENCY}}</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 4. Why this city -->
+        <section class="content-section" id="why">
+          <h2>Why {{CITY}}</h2>
+          {{WHY_CONTENT}}
+        </section>
+
+        <!-- 5. See -->
+        <section class="content-section" id="see">
+          <h2>What to see</h2>
+          <p>{{SEE_INTRO}}</p>
+          <div class="place-cards">
+            {{PLACE_CARDS}}
+            <!-- Example place card:
+            <div class="place-card">
+              <img src="{{PLACE_IMAGE}}" alt="{{PLACE_NAME}}" class="photo-card" loading="lazy" width="600" height="450">
+              <div class="place-card__body">
+                <div class="place-card__title">{{PLACE_NAME}}</div>
+                <div class="badge badge-interest" style="margin-bottom:0.5rem;">History</div>
+                <p class="place-card__desc">{{PLACE_DESC}}</p>
+                <div class="place-card__meta">{{HOURS}} · {{PRICE}}</div>
+              </div>
+            </div>
+            -->
+          </div>
+        </section>
+
+        <!-- 6. Do -->
+        <section class="content-section" id="do">
+          <h2>What to do</h2>
+          {{DO_CONTENT}}
+          <a href="{{EMERALD_URL}}" class="sponsor-link" target="_blank" rel="noopener sponsored">
+            Book activities →
+          </a>
+        </section>
+
+        <!-- 7. Eat & Drink -->
+        <section class="content-section" id="eat">
+          <h2>Where to eat &amp; drink</h2>
+          <p>{{EAT_INTRO}}</p>
+          {{EAT_CONTENT}}
+
+          <div class="tip-box" style="border-color:var(--wildflower);">
+            <span class="tip-box__label" style="color:var(--wildflower);">Avoid</span>
+            <p>{{TOURIST_TRAP_WARNING}}</p>
+          </div>
+        </section>
+
+        <!-- 8. Stay -->
+        <section class="content-section" id="stay">
+          <h2>Where to stay</h2>
+          <p>{{STAY_INTRO}}</p>
+          {{STAY_CONTENT}}
+          <a href="{{BOOKING_URL}}" class="sponsor-link" target="_blank" rel="noopener sponsored">
+            Find accommodation →
+          </a>
+        </section>
+
+        <!-- 9. How to get there -->
+        <section class="content-section" id="getting-there">
+          <h2>How to get there</h2>
+          <p>{{GET_THERE_INTRO}}</p>
+
+          <div class="table-wrapper">
+            <table>
+              <thead>
+                <tr>
+                  <th>From</th>
+                  <th>Train</th>
+                  <th>Duration</th>
+                  <th>Approx price</th>
+                  <th>Reservation fee</th>
+                </tr>
+              </thead>
+              <tbody>
+                {{GET_THERE_ROWS}}
+              </tbody>
+            </table>
+          </div>
+
+          <a href="{{TRAVELPAYOUTS_URL}}" class="sponsor-link" target="_blank" rel="noopener sponsored">
+            Compare trains &amp; prices →
+          </a>
+        </section>
+
+        <!-- 10. Getting around -->
+        <section class="content-section" id="getting-around">
+          <h2>Getting around {{CITY}}</h2>
+          <p>{{GETTING_AROUND_INTRO}}</p>
+          {{GETTING_AROUND_CONTENT}}
+        </section>
+
+        <!-- 11. Day trips -->
+        <section class="content-section" id="day-trips">
+          <h2>Day trips from {{CITY}}</h2>
+          <p>{{DAY_TRIPS_INTRO}}</p>
+          <div class="daytrip-cards">
+            {{DAYTRIP_CARDS}}
+            <!-- Example daytrip card:
+            <div class="daytrip-card">
+              <img src="{{DT_IMAGE}}" alt="{{DT_DEST}}" class="photo-card" loading="lazy" width="600" height="450">
+              <div class="daytrip-card__body">
+                <div class="daytrip-card__title">{{DT_DEST}}</div>
+                <p class="daytrip-card__desc">{{DT_DESC}}</p>
+                <div class="daytrip-card__meta">{{DT_DURATION}} · {{DT_TRANSPORT}} · Best for: {{DT_BEST_FOR}}</div>
+              </div>
+            </div>
+            -->
+          </div>
+        </section>
+
+        <!-- 12. Nearby by train -->
+        <section class="content-section" id="nearby">
+          <h2>Nearby by train</h2>
+          <p>Cities reachable in under 3 hours — useful for planning onward legs.</p>
+          <div class="nearby-grid">
+            {{NEARBY_ITEMS}}
+            <!-- Example nearby item:
+            <a href="../../slovenia/ljubljana/" class="nearby-item">
+              <div class="nearby-item__city">Ljubljana</div>
+              <div class="nearby-item__country">Slovenia</div>
+              <div class="nearby-item__time">2h by train</div>
+            </a>
+            -->
+          </div>
+        </section>
+
+        <!-- 13. In this city — itinerary cross-links -->
+        <section class="city-itineraries content-section" id="itineraries">
+          <h2>Itineraries that include {{CITY}}</h2>
+          <p>This city appears in these full-route guides.</p>
+          <div class="city-itineraries__grid">
+            {{ITINERARY_CROSSLINKS}}
+          </div>
+        </section>
+
+        <!-- 14. Honest take -->
+        <section class="content-section" id="honest-take">
+          <h2>Honest take</h2>
+          <div class="tip-box" style="border-color:var(--wildflower);">
+            <span class="tip-box__label" style="color:var(--wildflower);">My take</span>
+            {{HONEST_TAKE}}
+          </div>
+        </section>
+
+        <!-- 15. FAQ -->
+        <section class="content-section" id="faq">
+          <h2>Frequently asked questions</h2>
+          <div class="faq-list">
+
+            <details class="faq-item">
+              <summary>{{FAQ_1_Q}}</summary>
+              <div class="faq-answer"><p>{{FAQ_1_A}}</p></div>
+            </details>
+
+            <details class="faq-item">
+              <summary>{{FAQ_2_Q}}</summary>
+              <div class="faq-answer"><p>{{FAQ_2_A}}</p></div>
+            </details>
+
+            <details class="faq-item">
+              <summary>{{FAQ_3_Q}}</summary>
+              <div class="faq-answer"><p>{{FAQ_3_A}}</p></div>
+            </details>
+
+            <details class="faq-item">
+              <summary>{{FAQ_4_Q}}</summary>
+              <div class="faq-answer"><p>{{FAQ_4_A}}</p></div>
+            </details>
+
+            <details class="faq-item">
+              <summary>{{FAQ_5_Q}}</summary>
+              <div class="faq-answer"><p>{{FAQ_5_A}}</p></div>
+            </details>
+
+            {{ADDITIONAL_FAQS}}
+
+          </div>
+        </section>
+
+        <!-- 16. Resources -->
+        <section class="content-section" id="resources">
+          <h2>Resources</h2>
+          <ul class="resource-list">
+            <li><a href="https://www.interrail.eu" target="_blank" rel="noopener">Interrail — pass info &amp; reservation fees</a></li>
+            {{RESOURCE_LINKS}}
+          </ul>
+        </section>
+
+      </article>
+
+      <!-- Sidebar -->
+      <aside class="page-body__sidebar" aria-label="Quick navigation">
+        <nav style="background:var(--bg-alt); border:1px solid var(--stone); border-radius:var(--radius-md); padding:1.25rem;">
+          <div style="font-family:var(--font-sub); font-size:0.78rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--slate); margin-bottom:0.75rem;">On this page</div>
+          <ul style="list-style:none; padding:0; display:flex; flex-direction:column; gap:0.4rem;">
+            <li><a href="#see" style="font-size:0.875rem; text-decoration:none; color:var(--text-secondary);">See</a></li>
+            <li><a href="#do" style="font-size:0.875rem; text-decoration:none; color:var(--text-secondary);">Do</a></li>
+            <li><a href="#eat" style="font-size:0.875rem; text-decoration:none; color:var(--text-secondary);">Eat &amp; drink</a></li>
+            <li><a href="#stay" style="font-size:0.875rem; text-decoration:none; color:var(--text-secondary);">Stay</a></li>
+            <li><a href="#getting-there" style="font-size:0.875rem; text-decoration:none; color:var(--text-secondary);">Getting there</a></li>
+            <li><a href="#day-trips" style="font-size:0.875rem; text-decoration:none; color:var(--text-secondary);">Day trips</a></li>
+            <li><a href="#nearby" style="font-size:0.875rem; text-decoration:none; color:var(--text-secondary);">Nearby by train</a></li>
+            <li><a href="#faq" style="font-size:0.875rem; text-decoration:none; color:var(--text-secondary);">FAQ</a></li>
+          </ul>
+        </nav>
+
+        <!-- Quick stats mini-card in sidebar -->
+        <div style="background:var(--bg-alt); border:1px solid var(--stone); border-radius:var(--radius-md); padding:1.25rem; margin-top:1rem;">
+          <div style="font-family:var(--font-sub); font-size:0.78rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color:var(--slate); margin-bottom:0.75rem;">At a glance</div>
+          <div class="badge-row" style="flex-direction:column; align-items:flex-start;">
+            <span class="badge badge-duration">{{RECOMMENDED_NIGHTS}} nights recommended</span>
+            <span class="badge badge-budget">€{{BUDGET_LOW}}–{{BUDGET_HIGH}}/day</span>
+            <span class="badge badge-season">Best: {{BEST_SEASON}}</span>
+          </div>
+        </div>
+      </aside>
+
+    </div><!-- /.page-body -->
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div>
+        <div class="site-footer__brand">Jean Sees the World</div>
+        <div class="site-footer__handle">@jeanseestheworld</div>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="site-footer__links">
+          <li><a href="../../../itineraries/">Itineraries</a></li>
+          <li><a href="../../../guides/">Guides</a></li>
+          <li><a href="../../../cities/">Cities</a></li>
+          <li><a href="../../../articles/">Deep Dives</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="site-footer__copy">
+      Prices and timetables change. Always verify before booking. Some links are affiliate links — they cost you nothing extra.
+    </div>
+  </footer>
+
+  <script src="../../../assets/js/main.js" defer></script>
+</body>
+</html>

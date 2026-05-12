@@ -1,0 +1,95 @@
+{
+  "clusters": [
+    {
+      "id": "netherlands-7-days",
+      "type": "itinerary",
+      "title": "The Honest One-Week Guide — The Netherlands in 7 Days",
+      "slug": "netherlands-7-days",
+      "path": "itineraries/netherlands-7-days/index.html",
+      "region": "Western Europe",
+      "country": "Netherlands",
+      "duration_days": 7,
+      "difficulty": "easy",
+      "budget_per_day_eur": 80,
+      "interrail_pass": "global-flexi-4days-1month",
+      "best_season": "April–May",
+      "interests": ["solo", "architecture", "nature", "urban"],
+      "cities": ["Amsterdam", "Keukenhof", "Zaanse Schans", "Utrecht", "Groningen", "Rotterdam", "Maastricht"],
+      "published": false,
+      "created_at": "2026-05-12",
+      "satellites": []
+    },
+    {
+      "id": "croatia-10-days",
+      "type": "itinerary",
+      "title": "10 Days in Croatia by Interrail — The Honest Guide",
+      "slug": "croatia-10-days",
+      "path": "itineraries/croatia-10-days/index.html",
+      "region": "Balkans / Croatia",
+      "country": "Croatia",
+      "duration_days": 10,
+      "difficulty": "moderate",
+      "budget_per_day_eur": 90,
+      "interrail_pass": "global-flexi-7days-1month",
+      "best_season": "mid-June or mid-September",
+      "interests": ["solo", "beaches", "nature", "history", "islands"],
+      "cities": ["Zagreb", "Split", "Dubrovnik"],
+      "day_trips": ["Plitvice Lakes", "Rastoke", "Blue Lagoon", "Vis", "Hvar"],
+      "published": false,
+      "created_at": "2026-05-12",
+      "satellites": [
+        "articles/plitvice-from-zagreb/",
+        "articles/split-islands-guide/",
+        "articles/dubrovnik-day-trip/",
+        "articles/zagreb-underrated/"
+      ]
+    },
+    {
+      "id": "greece-6-days",
+      "type": "itinerary",
+      "title": "6 Days in Greece by Interrail — Athens, Olympus, Meteora, Crete",
+      "slug": "greece-6-days",
+      "path": "itineraries/greece-6-days/index.html",
+      "region": "Greece",
+      "country": "Greece",
+      "duration_days": 6,
+      "difficulty": "moderate",
+      "budget_per_day_eur": 205,
+      "interrail_pass": "global-flexi-4days-1month",
+      "best_season": "May–June, September",
+      "interests": ["food", "hiking", "culture", "cooking", "solo travel"],
+      "cities": ["Athens", "Litochoro", "Kalambaka", "Chania"],
+      "day_trips": ["Mount Olympus", "Meteora", "Samaria Gorge"],
+      "published": false,
+      "created_at": "2026-05-12",
+      "satellites": [
+        "articles/meteora-monasteries-guide/",
+        "articles/samaria-gorge-solo/",
+        "articles/greek-cooking-classes/",
+        "articles/interrail-greece-pass-explained/"
+      ]
+    }
+    ,
+    {
+      "id": "italy-food-trail",
+      "type": "itinerary",
+      "title": "Italy, by the forkful — Seven cities, fourteen meals",
+      "slug": "italy-food-trail",
+      "path": "itineraries/italy-food-trail/index.html",
+      "region": "Italy / Southern Europe",
+      "country": "Italy",
+      "duration_days": 14,
+      "difficulty": "easy",
+      "budget_per_day_eur": 80,
+      "interrail_pass": "italy-one-country-pass",
+      "best_season": "April–June, September–October",
+      "interests": ["gastronomie", "solo", "architecture", "urban", "trains"],
+      "cities": ["Naples", "Rome", "Florence", "Genoa", "Milan"],
+      "day_trips": ["Pompeii", "Sorrento", "Capri", "Camogli", "Cinque Terre", "Lake Como (Varenna, Bellagio)"],
+      "published": false,
+      "created_at": "2026-05-12",
+      "satellites": []
+    }
+  ],
+  "city_guides": []
+}

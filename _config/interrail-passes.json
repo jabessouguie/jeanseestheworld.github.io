@@ -1,0 +1,37 @@
+{
+  "passes": [
+    {
+      "id": "global-flexi-4days-1month",
+      "name": "Global Flexi — 4 travel days / 1 month",
+      "price_adult_eur": 212,
+      "travel_days": 4,
+      "validity_days": 30,
+      "suitable_for_days": "5-7",
+      "notes": "Ideal for short trips using point-to-point for cheap legs"
+    },
+    {
+      "id": "global-flexi-7days-1month",
+      "name": "Global Flexi — 7 travel days / 1 month",
+      "price_adult_eur": 312,
+      "travel_days": 7,
+      "validity_days": 30,
+      "suitable_for_days": "10-14"
+    },
+    {
+      "id": "global-flexi-10days-2months",
+      "name": "Global Flexi — 10 travel days / 2 months",
+      "price_adult_eur": 387,
+      "travel_days": 10,
+      "validity_days": 60,
+      "suitable_for_days": "14-21"
+    },
+    {
+      "id": "global-flexi-15days-2months",
+      "name": "Global Flexi — 15 travel days / 2 months",
+      "price_adult_eur": 472,
+      "travel_days": 15,
+      "validity_days": 60,
+      "suitable_for_days": "21-34"
+    }
+  ]
+}

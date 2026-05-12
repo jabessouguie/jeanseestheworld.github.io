@@ -1,0 +1,17 @@
+# Photos — never commit personal photos to git
+assets/photos/
+_photos/*.mov
+_photos/*.mp4
+_photos/*.jpeg
+_photos/*.jpg
+_photos/*.png
+_photos/*.webp
+_photos/*.heic
+/tmp/scoring_*.jpg
+tools/carousel-agent/output/
+newsletters/*-draft.html
+*.pyc
+__pycache__/
+.env
+.DS_Store
+.claude/

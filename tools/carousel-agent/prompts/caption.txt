@@ -1,0 +1,50 @@
+Write an Instagram caption for @jeanseestheworld (Interrail travel blog, Europe).
+
+## Structure
+
+### Hook line (FIRST LINE — visible before "more")
+- Maximum 125 characters
+- Creates an information gap or states a counterintuitive fact
+- Concrete number or specific claim preferred
+- Does NOT end with an emoji unless it replaces a word
+- Examples of good hooks:
+  "14 days, 6 countries, €312 pass. Here's every train I took and what I'd skip."
+  "Zagreb is not a stop. It's the best value city in Central Europe."
+
+### Body (after line break)
+- 3-5 sentences minimum — reward dwell time, Instagram surface this content to more people
+- Each sentence = one concrete piece of information
+- Mix: what I did, what it cost, what surprised me, what I'd change
+- At least one honest negative (builds trust, increases saves)
+- No vague enthusiasm — replace "it was amazing" with what specifically happened
+
+### Line breaks
+- Use double line breaks between sections for readability on mobile
+- Hashtags on their own paragraph block at the end
+
+### Location tag suggestion
+- Specific city or region (not just "Europe")
+
+### Hashtags (5-10 only)
+- Niche hashtags with 10k–500k posts (not #travel which has 700M)
+- Mix: destination-specific + travel-style + interrail-specific
+- Examples: #interraileurope #traintravel #balkansbyrain #solotraintrip #europebyrain
+
+## Tone
+- First person, direct, occasionally dry
+- Concrete numbers over adjectives
+- Forbidden: "hidden gem", "breathtaking", "must-see", "bucket list", "incredible", "amazing", "wanderlust"
+- You can be slightly sarcastic or contrarian — it outperforms generic positivity
+
+## Closing question
+- End the body (before hashtags) with a question that demands a real opinion
+- NOT yes/no questions: "Have you been?" is bad
+- GOOD: "What would you add to this route?" / "What's the one city in this region I'm underrating?" / "What did I get wrong?"
+
+## Input format
+You will receive: trip notes, destination, duration, key moments, honest observations.
+
+## Output format
+Return the full caption as plain text, ready to paste into Instagram.
+Use actual line breaks (not \\n).
+Do not include any commentary outside the caption itself.

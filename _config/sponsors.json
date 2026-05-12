@@ -1,0 +1,26 @@
+{
+  "interrail": {
+    "label": "Buy your Interrail Pass",
+    "url": "TON_LIEN_INTERRAIL",
+    "tags": ["interrail", "pass", "rail pass", "train pass"],
+    "insertion_context": "In the pass block and checklist of every itinerary"
+  },
+  "travelpayouts": {
+    "label": "Compare flights & trains",
+    "url": "TON_LIEN_TRAVELPAYOUTS",
+    "tags": ["flight", "train", "transport", "ticket"],
+    "insertion_context": "When discussing transport booking or ticket prices"
+  },
+  "emerald": {
+    "label": "Book this activity",
+    "url": "TON_LIEN_EMERALD",
+    "tags": ["activity", "tour", "excursion", "experience", "day trip"],
+    "insertion_context": "When recommending an activity or guided tour"
+  },
+  "booking": {
+    "label": "Find accommodation",
+    "url": "TON_LIEN_BOOKING",
+    "tags": ["hotel", "accommodation", "hostel", "stay"],
+    "insertion_context": "When discussing where to stay"
+  }
+}

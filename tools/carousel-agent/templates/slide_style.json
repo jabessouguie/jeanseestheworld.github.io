@@ -1,0 +1,64 @@
+{
+  "canvas": { "width": 1080, "height": 1350, "format": "JPEG", "quality": 95 },
+  "layout": { "type": "split_vertical", "photo_ratio": 0.50, "text_ratio": 0.50 },
+  "photo_zone": {
+    "position": "top",
+    "overlay": "dark_gradient_bottom",
+    "overlay_opacity": 0.35
+  },
+  "text_zone": { "background": "#1a3a35", "padding_h": 52, "padding_v": 36 },
+  "tag": {
+    "font": "Roboto Bold", "size": 22, "color": "#FFFFFF",
+    "border": true, "border_color": "#FFFFFF", "border_radius": 20,
+    "padding": "8px 18px", "uppercase": true
+  },
+  "title": {
+    "font": "Playfair Display Bold", "size": 68,
+    "color": "#FFFFFF", "line_height": 1.15, "margin_top": 20
+  },
+  "separator": { "color": "#FFFFFF", "width": 160, "height": 3, "margin": "18px 0" },
+  "body": {
+    "font": "Montserrat Regular", "size": 30,
+    "color": "rgba(255,255,255,0.82)", "line_height": 1.55
+  },
+  "handle": {
+    "font": "Montserrat Regular", "size": 24,
+    "color": "rgba(255,255,255,0.55)", "position": "bottom_left", "margin_bottom": 40
+  },
+  "swipe_indicator": {
+    "text": "swipe -->", "font": "Roboto Bold", "size": 24,
+    "color": "#FFFFFF", "position": "bottom_right", "margin_bottom": 40
+  },
+  "slide_counter": {
+    "font": "Roboto Bold", "size": 28, "color": "#1a3a35",
+    "background": "#FFFFFF", "shape": "circle", "diameter": 72,
+    "position": "top_right", "margin": 28
+  },
+  "hook_slide": {
+    "layout": "full_photo_with_overlay",
+    "tag_position": "top_left",
+    "title_position": "bottom",
+    "title_size": 80,
+    "cta_button": {
+      "border": true, "border_color": "#FFFFFF", "color": "#FFFFFF",
+      "font": "Roboto Bold", "size": 22, "border_radius": 6, "padding": "14px 28px"
+    }
+  },
+  "cta_slide": {
+    "layout": "full_dark_centered",
+    "background": "rgba(20,45,40,0.92)",
+    "text_align": "center",
+    "handle_color": "#FFFFFF",
+    "handle_size": 52,
+    "handle_weight": "Bold"
+  },
+  "tip_box": {
+    "background": "rgba(255,255,255,0.08)",
+    "border_left": "4px solid #FFFFFF",
+    "padding": "16px 20px",
+    "label": "PRO TIP",
+    "label_color": "#FFFFFF",
+    "label_font": "Roboto Bold",
+    "label_size": 22
+  }
+}

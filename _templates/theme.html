@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{THEME_TITLE}} — Jean Sees the World</title>
+  <meta name="description" content="{{META_DESCRIPTION}}">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Roboto:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap">
+
+  <link rel="stylesheet" href="../../assets/css/blog.css">
+
+  <!-- Schema.org: Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "{{THEME_TITLE}}",
+    "description": "{{META_DESCRIPTION}}",
+    "image": "{{HERO_IMAGE_ABSOLUTE}}",
+    "author": {
+      "@type": "Person",
+      "name": "Jean",
+      "sameAs": "https://instagram.com/jeanseestheworld"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Jean Sees the World"
+    },
+    "datePublished": "{{DATE_PUBLISHED}}",
+    "dateModified": "{{DATE_MODIFIED}}"
+  }
+  </script>
+  {{FAQ_SCHEMA_BLOCK}}
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="site-nav__inner">
+      <a href="../../index.html" class="site-nav__logo">Jean Sees the World</a>
+      <ul class="site-nav__links">
+        <li><a href="../../index.html">Home</a></li>
+        <li><a href="../../itineraries/">Itineraries</a></li>
+        <li><a href="../../guides/" aria-current="true">Guides</a></li>
+        <li><a href="../../cities/">Cities</a></li>
+        <li><a href="../../articles/">Deep Dives</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- 1. Hero -->
+  <section class="hero">
+    <img
+      src="{{HERO_IMAGE}}"
+      alt="{{HERO_ALT}}"
+      class="photo-hero"
+      width="1920" height="1080"
+      loading="eager"
+      fetchpriority="high"
+    >
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__content container">
+      <h1 class="hero__title">{{THEME_TITLE}}</h1>
+      <p class="hero__tagline">{{TAGLINE}}</p>
+    </div>
+  </section>
+
+  <!-- Breadcrumb -->
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <ol class="breadcrumb__list">
+      <li><a href="../../index.html">Home</a></li>
+      <li><a href="../../guides/">Guides</a></li>
+      <li>{{THEME_TITLE}}</li>
+    </ol>
+  </nav>
+
+  <main class="container page-body--no-sidebar" style="padding-top:2.5rem; padding-bottom:4rem; max-width:var(--max-width);">
+
+    <!-- 2. What this guide covers -->
+    <section class="content-section content-width" id="about">
+      <h2>What this guide covers</h2>
+      {{ABOUT_CONTENT}}
+
+      <!-- Quick navigation jump links -->
+      <nav aria-label="Section navigation" style="margin-top:1.5rem;">
+        <ul style="list-style:none; padding:0; display:flex; flex-wrap:wrap; gap:0.75rem;">
+          <li><a href="#itineraries" class="sponsor-link" style="text-decoration:none;">Itineraries →</a></li>
+          <li><a href="#cities" class="sponsor-link" style="text-decoration:none;">City guides →</a></li>
+          <li><a href="#how-to-plan" class="sponsor-link" style="text-decoration:none;">How to plan →</a></li>
+          <li><a href="#pass-strategy" class="sponsor-link" style="text-decoration:none;">Pass strategy →</a></li>
+          <li><a href="#budget" class="sponsor-link" style="text-decoration:none;">Budget →</a></li>
+        </ul>
+      </nav>
+    </section>
+
+    <!-- 4. Itineraries in this theme -->
+    <section class="content-section" id="itineraries">
+      <div class="container" style="padding:0;">
+        <h2>Itineraries in {{THEME_TITLE}}</h2>
+        <p>{{ITINERARIES_INTRO}}</p>
+        <div class="related-grid">
+          {{ITINERARY_CARDS}}
+          <!-- Example card:
+          <a href="../../itineraries/croatia-coast/" class="related-card">
+            <img src="{{THUMB}}" alt="{{TITLE}}" class="related-card__thumb" loading="lazy" width="480" height="270">
+            <div class="related-card__body">
+              <div class="related-card__title">{{TITLE}}</div>
+              <div class="related-card__meta">
+                <span class="badge badge-difficulty badge-moderate" style="font-size:0.7rem; padding:0.2em 0.6em;">Moderate</span>
+                <span style="margin-left:0.5rem;">14 days · €55/day</span>
+              </div>
+            </div>
+          </a>
+          -->
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. City guides in this theme -->
+    <section class="content-section" id="cities">
+      <div class="container" style="padding:0;">
+        <h2>City guides</h2>
+        <p>{{CITIES_INTRO}}</p>
+        <div class="cities-grid">
+          {{CITY_CARDS}}
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. How to plan (by duration) -->
+    <section class="content-section content-width" id="how-to-plan">
+      <h2>How to plan your trip</h2>
+      <p>{{PLAN_INTRO}}</p>
+
+      <h3>1 week (6–7 days)</h3>
+      {{PLAN_1WEEK}}
+
+      <h3>2 weeks (12–14 days)</h3>
+      {{PLAN_2WEEKS}}
+
+      <h3>3+ weeks (21+ days)</h3>
+      {{PLAN_3WEEKS}}
+    </section>
+
+    <!-- 7. Pass strategy -->
+    <section class="pass-block content-section" id="pass-strategy">
+      <h2>Pass strategy for {{THEME_TITLE}}</h2>
+      <p>{{PASS_INTRO}}</p>
+
+      <div class="pass-cards">
+        {{PASS_CARDS}}
+        <!-- Example pass card:
+        <div class="pass-card">
+          <div class="pass-card__name">Global Flexi — 7 days / 1 month</div>
+          <div class="pass-card__price">€312</div>
+          <div class="pass-card__detail">7 travel days · 30-day validity · Best for 10–14 day trips</div>
+        </div>
+        -->
+      </div>
+
+      <p style="margin-top:1.25rem; color:rgba(255,255,255,0.82); font-size:0.9rem;">
+        {{PASS_TIP}}
+      </p>
+
+      <a href="{{INTERRAIL_AFFILIATE_URL}}" class="sponsor-link" target="_blank" rel="noopener sponsored">
+        Buy your Interrail Pass →
+      </a>
+    </section>
+
+    <!-- 8. Budget reality -->
+    <section class="content-section content-width" id="budget">
+      <h2>Budget reality</h2>
+      <p>{{BUDGET_INTRO}}</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Country / Zone</th>
+              <th>Budget / day</th>
+              <th>Mid-range / day</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{BUDGET_ROWS}}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 9. Related themes -->
+    <section class="content-section" id="related">
+      <h2>Related guides</h2>
+      <div class="related-grid">
+        {{RELATED_THEME_CARDS}}
+      </div>
+    </section>
+
+    <!-- Optional FAQ (for question-intent keywords) -->
+    {{FAQ_SECTION}}
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="site-footer__inner">
+      <div>
+        <div class="site-footer__brand">Jean Sees the World</div>
+        <div class="site-footer__handle">@jeanseestheworld</div>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="site-footer__links">
+          <li><a href="../../itineraries/">Itineraries</a></li>
+          <li><a href="../../guides/">Guides</a></li>
+          <li><a href="../../cities/">Cities</a></li>
+          <li><a href="../../articles/">Deep Dives</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="site-footer__copy">
+      Prices and timetables change. Always verify before booking. Some links are affiliate links — they cost you nothing extra.
+    </div>
+  </footer>
+
+  <script src="../../assets/js/main.js" defer></script>
+</body>
+</html>

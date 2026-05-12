@@ -1,0 +1,47 @@
+{
+  "blog": {
+    "name": "Jean Sees the World",
+    "handle": "@jeanseestheworld",
+    "language": "en",
+    "focus": "Interrail itineraries in Europe"
+  },
+  "fonts": {
+    "headline":   "Playfair Display — titres H1/H2, bold",
+    "subheading": "Roboto — sous-titres H3, badges, labels",
+    "body":       "Montserrat — corps de texte, listes"
+  },
+  "colors": {
+    "snow":       "#F4F6F2",
+    "mist":       "#E8EDE8",
+    "sage":       "#7A9E7E",
+    "moss":       "#4A6741",
+    "fern":       "#2E4A30",
+    "glacier":    "#5BA4CF",
+    "sky":        "#A8D1E7",
+    "deep_lake":  "#1F5F8B",
+    "alpine_sun": "#E8C547",
+    "wildflower": "#C96B3A",
+    "slate":      "#6B7280",
+    "stone":      "#D1D5DB",
+    "white":      "#FFFFFF"
+  },
+  "roles": {
+    "background_primary":  "snow",
+    "background_alt":      "mist",
+    "text_primary":        "fern",
+    "text_secondary":      "slate",
+    "accent_primary":      "glacier",
+    "accent_warm":         "alpine_sun",
+    "accent_rare":         "wildflower",
+    "surface_dark":        "fern",
+    "surface_mid":         "moss",
+    "surface_light":       "sage"
+  },
+  "carousel": {
+    "background":      "#1a3a35",
+    "accent_elements": "#FFFFFF",
+    "title_color":     "#FFFFFF",
+    "body_color":      "rgba(255,255,255,0.82)"
+  },
+  "google_fonts_url": "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Roboto:wght@400;600;700&family=Montserrat:wght@400;500;600&display=swap"
+}
